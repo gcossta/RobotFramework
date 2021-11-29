@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0.1 (Python 3.9.4 on win32)" generated="20210511 11:10:18.932" rpa="false" schemaversion="2">
+<suite id="s1" name="Post With Template" source="C:\TESTES\RobotFramework\Scripts\Udemy\Avancado\API\post_with_template.robot">
+<test id="s1-t1" name="Exemplo: Postando com body template">
+<kw name="Conectar com autenticação por token na API do GitHub">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADERS}</var>
+<arg>Authorization=Bearer ${MY_GITHUB_TOKEN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20210511 11:10:19.065" level="INFO">${HEADERS} = {'Authorization': 'Bearer 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'}</msg>
+<status status="PASS" starttime="20210511 11:10:19.064" endtime="20210511 11:10:19.065"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=mygithubAuth</arg>
+<arg>url=${GITHUB_HOST}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20210511 11:10:19.066" level="INFO">Creating Session using : alias=mygithubAuth, url=https://api.github.com, headers={'Authorization': 'Bearer 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'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210511 11:10:19.065" endtime="20210511 11:10:19.066"/>
+</kw>
+<status status="PASS" starttime="20210511 11:10:19.064" endtime="20210511 11:10:19.066"/>
+</kw>
+<kw name="Postar uma nova issue com label &quot;robot framework&quot;" sourcename="Postar uma nova issue com label &quot;${LABEL}&quot;">
+<kw name="Format String" library="String">
+<var>${BODY}</var>
+<arg>C:\\TESTES\\RobotFramework\\Scripts\\Udemy\\Avancado\\API/data/input/post_issue.json</arg>
+<arg>user_git=${MY_GITHUB_USER}</arg>
+<arg>label=${LABEL}</arg>
+<doc>Formats a ``template`` using the given ``positional`` and ``named`` arguments.</doc>
+<msg timestamp="20210511 11:10:19.068" level="INFO" html="true">Reading template from file &lt;a href="C:\TESTES\RobotFramework\Scripts\Udemy\Avancado\API\data\input\post_issue.json"&gt;C:\TESTES\RobotFramework\Scripts\Udemy\Avancado\API\data\input\post_issue.json&lt;/a&gt;.</msg>
+<msg timestamp="20210511 11:10:19.068" level="INFO">${BODY} = {
+    "title": "Teste de criar Issue via API do GitHub by [gcossta]",
+    "body": "gcossta criou essa Issue via API do GitHub nos testes com Robot Framework!",
+    "assignees": [
+        "gcossta"
+   ...</msg>
+<status status="PASS" starttime="20210511 11:10:19.067" endtime="20210511 11:10:19.068"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Meu Body ficou:\n${BODY}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20210511 11:10:19.069" level="INFO">Meu Body ficou:
+{
+    "title": "Teste de criar Issue via API do GitHub by [gcossta]",
+    "body": "gcossta criou essa Issue via API do GitHub nos testes com Robot Framework!",
+    "assignees": [
+        "gcossta"
+    ],
+    "labels": [
+        "robot framework"
+    ]
+}
+</msg>
+<status status="PASS" starttime="20210511 11:10:19.068" endtime="20210511 11:10:19.069"/>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>alias=mygithubAuth</arg>
+<arg>uri=${ISSUES_URI}</arg>
+<arg>data=${BODY}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<msg timestamp="20210511 11:10:19.069" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg timestamp="20210511 11:10:20.136" level="INFO">POST Request : url=https://api.github.com/repos/gcossta/robot_avancado/issues 
+ path_url=/repos/gcossta/robot_avancado/issues 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer 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', 'Content-Length': '254'} 
+ body=b'{\n    "title": "Teste de criar Issue via API do GitHub by [gcossta]",\n    "body": "gcossta criou essa Issue via API do GitHub nos testes com Robot Framework!",\n    "assignees": [\n        "gcossta"\n    ],\n    "labels": [\n        "robot framework"\n    ]\n}\n' 
+ </msg>
+<msg timestamp="20210511 11:10:20.136" level="INFO">POST Response : url=https://api.github.com/repos/gcossta/robot_avancado/issues 
+ status=201, reason=Created 
+ headers={'Server': 'GitHub.com', 'Date': 'Tue, 11 May 2021 15:10:20 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '3875', 'Cache-Control': 'private, max-age=60, s-maxage=60', 'Vary': 'Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept, X-Requested-With', 'ETag': '"bec50858b03c86b90dcb07ee848b044313cf2338eccb1779a919b7241c959772"', 'X-OAuth-Scopes': 'admin:enterprise, admin:gpg_key, admin:org, admin:org_hook, admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist, notifications, repo, user, workflow, write:discussion, write:packages', 'X-Accepted-OAuth-Scopes': '', 'Location': 'https://api.github.com/repos/gcossta/robot_avancado/issues/2', 'X-GitHub-Media-Type': 'github.v3; format=json', 'X-RateLimit-Limit': '5000', 'X-RateLimit-Remaining': '4992', 'X-RateLimit-Reset': '1620748524', 'X-RateLimit-Used': '8', 'X-RateLimit-Resource': 'core', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset', 'Access-Control-Allow-Origin': '*', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Frame-Options': 'deny', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'Content-Security-Policy': "default-src 'none'", 'X-GitHub-Request-Id': 'DF59:2D6D:2C328B4:535FC5D:609A9E5B'} 
+ body={"url":"https://api.github.com/repos/gcossta/robot_avancado/issues/2","repository_url":"https://api.github.com/repos/gcossta/robot_avancado","labels_url":"https://api.github.com/repos/gcossta/robot_avancado/issues/2/labels{/name}","comments_url":"https://api.github.com/repos/gcossta/robot_avancado/issues/2/comments","events_url":"https://api.github.com/repos/gcossta/robot_avancado/issues/2/events","html_url":"https://github.com/gcossta/robot_avancado/issues/2","id":887581562,"node_id":"MDU6SXNzdWU4ODc1ODE1NjI=","number":2,"title":"Teste de criar Issue via API do GitHub by [gcossta]","user":{"login":"gcossta","id":68305775,"node_id":"MDQ6VXNlcjY4MzA1Nzc1","avatar_url":"https://avatars.githubusercontent.com/u/68305775?v=4","gravatar_id":"","url":"https://api.github.com/users/gcossta","html_url":"https://github.com/gcossta","followers_url":"https://api.github.com/users/gcossta/followers","following_url":"https://api.github.com/users/gcossta/following{/other_user}","gists_url":"https://api.github.com/users/gcossta/gists{/gist_id}","starred_url":"https://api.github.com/users/gcossta/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/gcossta/subscriptions","organizations_url":"https://api.github.com/users/gcossta/orgs","repos_url":"https://api.github.com/users/gcossta/repos","events_url":"https://api.github.com/users/gcossta/events{/privacy}","received_events_url":"https://api.github.com/users/gcossta/received_events","type":"User","site_admin":false},"labels":[{"id":2991133055,"node_id":"MDU6TGFiZWwyOTkxMTMzMDU1","url":"https://api.github.com/repos/gcossta/robot_avancado/labels/robot%20framework","name":"robot framework","color":"ededed","default":false,"description":null}],"state":"open","locked":false,"assignee":{"login":"gcossta","id":68305775,"node_id":"MDQ6VXNlcjY4MzA1Nzc1","avatar_url":"https://avatars.githubusercontent.com/u/68305775?v=4","gravatar_id":"","url":"https://api.github.com/users/gcossta","html_url":"https://github.com/gcossta","followers_url":"https://api.github.com/users/gcossta/followers","following_url":"https://api.github.com/users/gcossta/following{/other_user}","gists_url":"https://api.github.com/users/gcossta/gists{/gist_id}","starred_url":"https://api.github.com/users/gcossta/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/gcossta/subscriptions","organizations_url":"https://api.github.com/users/gcossta/orgs","repos_url":"https://api.github.com/users/gcossta/repos","events_url":"https://api.github.com/users/gcossta/events{/privacy}","received_events_url":"https://api.github.com/users/gcossta/received_events","type":"User","site_admin":false},"assignees":[{"login":"gcossta","id":68305775,"node_id":"MDQ6VXNlcjY4MzA1Nzc1","avatar_url":"https://avatars.githubusercontent.com/u/68305775?v=4","gravatar_id":"","url":"https://api.github.com/users/gcossta","html_url":"https://github.com/gcossta","followers_url":"https://api.github.com/users/gcossta/followers","following_url":"https://api.github.com/users/gcossta/following{/other_user}","gists_url":"https://api.github.com/users/gcossta/gists{/gist_id}","starred_url":"https://api.github.com/users/gcossta/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/gcossta/subscriptions","organizations_url":"https://api.github.com/users/gcossta/orgs","repos_url":"https://api.github.com/users/gcossta/repos","events_url":"https://api.github.com/users/gcossta/events{/privacy}","received_events_url":"https://api.github.com/users/gcossta/received_events","type":"User","site_admin":false}],"milestone":null,"comments":0,"created_at":"2021-05-11T15:10:19Z","updated_at":"2021-05-11T15:10:20Z","closed_at":null,"author_association":"OWNER","active_lock_reason":null,"body":"gcossta criou essa Issue via API do GitHub nos testes com Robot Framework!","closed_by":null,"performed_via_github_app":null} 
+ </msg>
+<msg timestamp="20210511 11:10:20.136" level="INFO">${RESPONSE} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20210511 11:10:19.069" endtime="20210511 11:10:20.136"/>
+</kw>
+<kw name="Confere sucesso na requisição">
+<arg>${RESPONSE}</arg>
+<kw name="Should Be True" library="BuiltIn">
+<arg>'${RESPONSE.status_code}'=='200' or '${RESPONSE.status_code}'=='201'</arg>
+<arg>msg=Erro na requisição! Verifique: ${RESPONSE}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20210511 11:10:20.137" endtime="20210511 11:10:20.138"/>
+</kw>
+<status status="PASS" starttime="20210511 11:10:20.136" endtime="20210511 11:10:20.138"/>
+</kw>
+<status status="PASS" starttime="20210511 11:10:19.067" endtime="20210511 11:10:20.138"/>
+</kw>
+<status status="PASS" starttime="20210511 11:10:19.063" endtime="20210511 11:10:20.139"/>
+</test>
+<doc>Exemplos da própria Library: https://github.com/bulkan/robotframework-requests/blob/master/tests/testcase.robot
+Doc da API do GitHub: https://developer.github.com/v3/</doc>
+<status status="PASS" starttime="20210511 11:10:18.935" endtime="20210511 11:10:20.142"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Post With Template">Post With Template</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20210511 11:10:19.069" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+</errors>
+</robot>

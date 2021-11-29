@@ -1,0 +1,20 @@
+internal/modules/cjs/loader.js:883
+  throw err;
+  ^
+
+Error: Cannot find module 'playwright'
+Require stack:
+- c:\python39\lib\site-packages\Browser\wrapper\index.js
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:880:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:725:27)
+    at Module.require (internal/modules/cjs/loader.js:952:19)
+    at require (internal/modules/cjs/helpers.js:88:18)
+    at Object.playwright (c:\python39\lib\site-packages\Browser\wrapper\index.js:71941:18)
+    at __webpack_require__ (c:\python39\lib\site-packages\Browser\wrapper\index.js:72052:42)
+    at Object../node/playwright-wrapper/response-util.ts (c:\python39\lib\site-packages\Browser\wrapper\index.js:71155:20)
+    at __webpack_require__ (c:\python39\lib\site-packages\Browser\wrapper\index.js:72052:42)
+    at Object../node/playwright-wrapper/browser-control.ts (c:\python39\lib\site-packages\Browser\wrapper\index.js:66440:23)
+    at __webpack_require__ (c:\python39\lib\site-packages\Browser\wrapper\index.js:72052:42) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ 'c:\\python39\\lib\\site-packages\\Browser\\wrapper\\index.js' ]
+}
